@@ -60,7 +60,7 @@ After rebuild/switch, run:
 ./scripts/post-install.sh
 ```
 
-This installs or updates Doom Emacs core and your Doom config.
+This installs or updates Doom Emacs core, your Doom config, and clones/updates `~/Org`.
 
 ## Org auto-commit
 

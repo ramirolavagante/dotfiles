@@ -45,21 +45,28 @@ if [[ ! -d "$ORG_DIR" ]]; then
   exit 1
 fi
 
-cd "$ORG_DIR"
+git_org() {
+  git -C "$ORG_DIR" "$@"
+}
 
-if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+if ! git_org rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   log "Not a git repository: $ORG_DIR"
   exit 1
 fi
 
-if git diff --quiet && git diff --cached --quiet && [[ -z "$(git ls-files --others --exclude-standard)" ]]; then
+repo_root="$(git_org rev-parse --show-toplevel 2>/dev/null || echo "$ORG_DIR")"
+
+if git_org diff --quiet && git_org diff --cached --quiet && [[ -z "$(git_org ls-files --others --exclude-standard)" ]]; then
   log "No changes detected."
   exit 0
 fi
 
-git add -A
+if ! git_add_output="$(git_org add -A 2>&1)"; then
+  log "git add failed at $ORG_DIR: $git_add_output"
+  exit 0
+fi
 
-if git diff --cached --quiet; then
+if git_org diff --cached --quiet; then
   log "No staged changes after git add."
   exit 0
 fi
@@ -78,7 +85,7 @@ while IFS= read -r file; do
 
   if [[ $changed_file_count -le $MAX_DIFF_FILES ]]; then
     diff_excerpts+="### $file"$'\n'
-    file_excerpt="$(git diff --cached --unified=0 -- "$file" | sed -n "1,${MAX_DIFF_LINES_PER_FILE}p")"
+    file_excerpt="$(git_org diff --cached --unified=0 -- "$file" | sed -n "1,${MAX_DIFF_LINES_PER_FILE}p")"
     if [[ -n "$file_excerpt" ]]; then
       diff_excerpts+="$file_excerpt"$'\n'
     else
@@ -86,7 +93,7 @@ while IFS= read -r file; do
     fi
     diff_excerpts+=$'\n'
   fi
-done < <(git diff --cached --name-only)
+done < <(git_org diff --cached --name-only)
 
 changed_files="${changed_files%$'\n'}"
 if [[ -z "$changed_files" ]]; then
@@ -97,8 +104,8 @@ if [[ $changed_file_count -gt $MAX_DIFF_FILES ]]; then
   diff_excerpts+="(Only the first ${MAX_DIFF_FILES} files are expanded; total changed files: ${changed_file_count}.)"
 fi
 
-diff_stat="$(git diff --cached --stat)"
-diff_numstat="$(git diff --cached --numstat | sed -n '1,200p')"
+diff_stat="$(git_org diff --cached --stat)"
+diff_numstat="$(git_org diff --cached --numstat | sed -n '1,200p')"
 
 prompt="$(cat <<EOF
 I am writing a git commit message for Org Mode notes.
@@ -182,10 +189,9 @@ normalize_message() {
     | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
   title="$(printf '%s' "$title" | sed 's/\.$//' | sed 's/[[:space:]]*$//')"
   prefix="${HOSTNAME_LABEL}: "
-  title="$(printf '%s' "$title" | cut -c1-"$TITLE_CONTENT_MAX_LEN" | sed 's/[[:space:]]*$//')"
   if [[ -z "$title" ]]; then
     fallback_title="Update Org notes"
-    title="$(printf '%s' "$fallback_title" | cut -c1-"$TITLE_CONTENT_MAX_LEN" | sed 's/[[:space:]]*$//')"
+    title="$fallback_title"
   fi
 
   body="$(printf '%s\n' "$cleaned" | tail -n +2)"
@@ -220,7 +226,7 @@ if [[ "${ORG_AUTOCOMMIT_DRY_RUN:-0}" == "1" ]]; then
   exit 0
 fi
 
-if git commit -F "$msg_file" >> "$RUN_LOG" 2>&1; then
+if git_org commit -F "$msg_file" >> "$RUN_LOG" 2>&1; then
   committed_title="$(head -n 1 "$msg_file")"
   log "Committed successfully: $committed_title"
 else
@@ -229,7 +235,7 @@ else
 fi
 
 if [[ "${ORG_AUTOCOMMIT_PUSH:-0}" == "1" ]]; then
-  if git push >> "$RUN_LOG" 2>&1; then
+  if git_org push >> "$RUN_LOG" 2>&1; then
     log "Pushed successfully."
   else
     log "git push failed."

@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  homeDir = config.users.users.rodelrod.home;
+in
 {
   imports = [ ./homebrew.nix ];
 
@@ -35,11 +38,11 @@
   # Auto-commit Org notes every 15 minutes using Ollama for commit messages.
   launchd.user.agents.org-autocommit = {
     serviceConfig = {
-      ProgramArguments = [ "/bin/bash" "/Users/rodelrod/dotfiles/scripts/org-autocommit.sh" ];
+      ProgramArguments = [ "/bin/bash" "${homeDir}/dotfiles/scripts/org-autocommit.sh" ];
       RunAtLoad = true;
       StartInterval = 900;
-      StandardOutPath = "/Users/rodelrod/Library/Logs/org-autocommit.launchd.out.log";
-      StandardErrorPath = "/Users/rodelrod/Library/Logs/org-autocommit.launchd.err.log";
+      StandardOutPath = "${homeDir}/Library/Logs/org-autocommit/org-autocommit.launchd.out.log";
+      StandardErrorPath = "${homeDir}/Library/Logs/org-autocommit/org-autocommit.launchd.err.log";
     };
   };
 
