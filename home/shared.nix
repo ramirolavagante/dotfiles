@@ -6,6 +6,13 @@ in
 {
   home.stateVersion = "24.05";
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.git.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -17,7 +24,6 @@ in
     };
   };
 
-  programs.git.enable = true;
 
   home.packages = with pkgs; [
     # CLI tools (cross-platform via Nix)
@@ -27,6 +33,8 @@ in
     graphviz
     htop
     neovim
+    nodejs
+    pandoc
     pdftk
     pwgen
     ripgrep
