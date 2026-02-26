@@ -31,6 +31,7 @@
     casks = [
       # GUI apps
       "alt-tab"
+      "codex"
       "cursor"
       "discord"
       "karabiner-elements"
