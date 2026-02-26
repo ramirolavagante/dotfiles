@@ -48,6 +48,7 @@
       # Fonts
       "font-source-sans-3"
       "font-source-code-pro"
+      "font-jetbrains-mono-nerd-font"
     ];
   };
 }
