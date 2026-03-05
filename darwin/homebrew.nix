@@ -35,6 +35,7 @@
       "cursor"
       "discord"
       "google-chrome"
+      "hammerspoon"
       "karabiner-elements"
       "libreoffice"
       "meld"
