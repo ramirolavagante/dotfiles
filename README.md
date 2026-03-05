@@ -77,6 +77,18 @@ After applying your macOS config, enable the rules you want in Karabiner-Element
 3. Click `Add predefined rule`.
 4. Enable the rules you want (for example: Both Shifts Toggle Caps Lock, Right Option Hyper, Disable Cmd-H).
 
+## Hammerspoon
+
+Hammerspoon config is tracked in this repo and installed via Home Manager to:
+
+- `~/.hammerspoon/`
+
+After applying your macOS config:
+
+1. Open Hammerspoon.
+2. If prompted, grant Accessibility permission in macOS settings.
+3. Use the Hammerspoon menu bar icon and click `Reload Config`.
+
 ## Neovim (LazyVim)
 
 Neovim is managed by Home Manager with a LazyVim starter config under `config/nvim`.

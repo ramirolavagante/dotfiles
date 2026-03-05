@@ -7,6 +7,12 @@
     recursive = true;
   };
 
+  # Install Hammerspoon configuration.
+  home.file.".hammerspoon" = {
+    source = ../config/hammerspoon;
+    recursive = true;
+  };
+
   # Restart Ollama service after Homebrew activation (replaces restart_service: true)
   home.activation.restartOllama = lib.mkAfter ''
     if command -v brew >/dev/null 2>&1; then
