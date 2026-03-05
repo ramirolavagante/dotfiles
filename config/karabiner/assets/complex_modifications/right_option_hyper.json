@@ -1,5 +1,5 @@
 {
-  "title": "Right Option Hyper",
+  "title": "Right Option Hyper + Right Command Option",
   "rules": [
     {
       "description": "Right Option → Hyper",
@@ -22,7 +22,23 @@
           ]
         }
       ]
+    },
+    {
+      "description": "Right Command → Right Option",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [
+            {
+              "key_code": "right_option"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
-
