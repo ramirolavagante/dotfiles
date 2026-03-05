@@ -34,9 +34,9 @@
       "codex"
       "cursor"
       "discord"
+      "google-chrome"
       "karabiner-elements"
       "libreoffice"
-      "google-chrome"
       "meld"
       "monitorcontrol"
       "portfolioperformance"
@@ -46,9 +46,9 @@
       "visual-studio-code"
       "xmind"
       # Fonts
-      "font-source-sans-3"
-      "font-source-code-pro"
       "font-jetbrains-mono-nerd-font"
+      "font-source-code-pro"
+      "font-source-sans-3"
     ];
   };
 }
