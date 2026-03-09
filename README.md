@@ -99,6 +99,14 @@ After applying your Nix config, start Neovim once to bootstrap plugins:
 nvim
 ```
 
+If you edit Neovim Lua source directly in this repo (`~/dotfiles/config/nvim`), generate a host-local LuaLS config that points to the current machine's Neovim runtime:
+
+```bash
+./scripts/gen-nvim-luarc.sh
+```
+
+This writes `config/nvim/.luarc.json` (git-ignored) for local diagnostics while editing dotfiles source.
+
 ## Org auto-commit
 
 On macOS, a user launchd agent (`org-autocommit`) runs every 15 minutes and executes:
