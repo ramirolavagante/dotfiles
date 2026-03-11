@@ -46,6 +46,15 @@ in
     };
   };
 
+  # PostgreSQL server managed by nix-darwin.
+  services.postgresql = {
+    enable = true;
+    enableTCPIP = true;
+    port = 5432;
+    package = pkgs.postgresql;
+    dataDir = "${homeDir}/.local/share/postgresql-${pkgs.postgresql.psqlSchema}";
+  };
+
   # Network settings, keyboard layouts, etc. can go here
   # See: https://daiderd.com/nix-darwin/manual/index.html
 

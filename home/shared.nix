@@ -91,6 +91,7 @@ in
     qpdf
     pandoc
     pdftk
+    postgresql
     pwgen
     pyright
     ripgrep

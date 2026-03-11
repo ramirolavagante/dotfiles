@@ -119,6 +119,30 @@ DBeaver can install Eclipse plugins. To add Vim-style keybindings:
 
 If DBeaver was installed in a protected path (for example `/Applications`), plugin installation may require elevated permissions or a user-writable install location.
 
+## PostgreSQL (manual first-time setup for MacOS)
+
+PostgreSQL is installed via Nix and managed by nix-darwin.
+After `sudo darwin-rebuild switch --flake .#kubrick`, run this once:
+
+```bash
+# if your OS user role does not exist yet
+PG_MAJOR="$(psql --version | awk '{print $3}' | cut -d. -f1)"
+launchctl bootout gui/$(id -u)/org.nixos.postgresql
+printf 'CREATE ROLE "%s" WITH LOGIN SUPERUSER;\n' "$USER" \
+  | postgres --single -D "$HOME/.local/share/postgresql-${PG_MAJOR}" postgres
+launchctl bootstrap gui/$(id -u) "$HOME/Library/LaunchAgents/org.nixos.postgresql.plist"
+launchctl kickstart -k gui/$(id -u)/org.nixos.postgresql
+
+# create a database for your user
+createdb "$USER"
+```
+
+Optional (for DBeaver/TCP login):
+
+```bash
+psql -d postgres -c "ALTER ROLE \"$USER\" PASSWORD 'change-me';"
+```
+
 ## Org auto-commit
 
 On macOS, a user launchd agent (`org-autocommit`) runs every 15 minutes and executes:
