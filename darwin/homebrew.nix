@@ -33,6 +33,7 @@
       "alt-tab"
       "codex"
       "cursor"
+      "dbeaver-community"
       "discord"
       "google-chrome"
       "hammerspoon"

@@ -107,6 +107,18 @@ If you edit Neovim Lua source directly in this repo (`~/dotfiles/config/nvim`), 
 
 This writes `config/nvim/.luarc.json` (git-ignored) for local diagnostics while editing dotfiles source.
 
+## DBeaver (Vim keybindings)
+
+DBeaver can install Eclipse plugins. To add Vim-style keybindings:
+
+1. Open DBeaver.
+2. Go to `Help` -> `Install New Software...`.
+3. Add/update site URL: `http://vrapper.sourceforge.net/update-site/stable`
+4. Select `Vrapper` and finish installation.
+5. Restart DBeaver when prompted.
+
+If DBeaver was installed in a protected path (for example `/Applications`), plugin installation may require elevated permissions or a user-writable install location.
+
 ## Org auto-commit
 
 On macOS, a user launchd agent (`org-autocommit`) runs every 15 minutes and executes:
