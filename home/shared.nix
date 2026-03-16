@@ -5,6 +5,9 @@ let
 in
 {
   home.stateVersion = "24.05";
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   programs.direnv = {
     enable = true;
