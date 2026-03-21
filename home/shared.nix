@@ -72,7 +72,10 @@ in
     enableCompletion = true;
     autosuggestion.enable = true;
     shellAliases = {
-      ll = "ls -la";
+      ls = "eza --group-directories-first";
+      ll = "eza -lah --git --icons=auto --group-directories-first";
+      la = "eza -a --group-directories-first";
+      lt = "eza --tree --level=2 --icons=auto";
       gs = "git status";
       doom = "${doomCorePath}/bin/doom";
     };
@@ -118,6 +121,7 @@ in
   home.packages = with pkgs; [
     # CLI tools (cross-platform via Nix)
     bat
+    eza
     fd
     graphviz
     htop
