@@ -21,6 +21,11 @@ in
 
   programs.git.enable = true;
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.tmux = {
     enable = true;
     terminal = "screen-256color";
@@ -109,7 +114,6 @@ in
     # CLI tools (cross-platform via Nix)
     bat
     fd
-    fzf
     graphviz
     htop
     nodejs
