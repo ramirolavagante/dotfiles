@@ -131,6 +131,8 @@ in
     bat
     eza
     fd
+    go
+    gopls
     graphviz
     htop
     nodejs

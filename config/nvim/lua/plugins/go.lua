@@ -17,15 +17,9 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        gopls = {},
-      },
-    },
-  },
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "gopls",
+        gopls = {
+          mason = false,
+        },
       },
     },
   },
