@@ -21,7 +21,13 @@ in
     nix-direnv.enable = true;
   };
 
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+
+    settings = {
+      include.path = "${config.home.homeDirectory}/.gitconfig.local";
+    };
+  };
 
   programs.fzf = {
     enable = true;
