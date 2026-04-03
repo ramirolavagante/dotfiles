@@ -85,6 +85,7 @@ in
       ll = "eza -lah --git --icons=auto --group-directories-first";
       la = "eza -a --group-directories-first";
       lt = "eza --tree --level=2 --icons=auto";
+      z = "cd";
       gs = "git status";
       doom = "${doomCorePath}/bin/doom";
     };
