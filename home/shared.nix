@@ -77,6 +77,7 @@ in
 
   programs.zsh = {
     enable = true;
+    defaultKeymap = "emacs";
     enableCompletion = true;
     autosuggestion.enable = true;
     shellAliases = {
